@@ -12,13 +12,21 @@ import com.ordermate.utils.Utility;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 class OrderMateFrame extends JFrame {
 
+    // GroupsPanel shows the Groups like "Burger, Chips & Drinks" on the left side in Main Window.
     private GroupsPanel groupPanel;
+
+    // Products Panel shows the list of items belonging to a group
     private ProductsPanel itemsPanel;
+
+    // Every item selected for a sale is listed in this Panel.
     private SelectedItemsPanel selectedItemsPanel;
+
+    // AllSalesPanel shows the Tabular information of all the sales captured.
     private AllSalesPanel allSalesPanel;
 
     private SelectedItemsListModel selectedItemModel;
@@ -42,7 +50,6 @@ class OrderMateFrame extends JFrame {
         setSize(Toolkit.getDefaultToolkit().getScreenSize());
         setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         setAlwaysOnTop(true);
-        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         saveAction = new SaveAction();
         allSales = new ArrayList<>();
@@ -57,7 +64,7 @@ class OrderMateFrame extends JFrame {
         topLabel.setPreferredSize(new Dimension(topLabel.getPreferredSize().width,100));
         topLabel.setHorizontalAlignment(JLabel.CENTER);
         topLabel.setOpaque(true);
-        topLabel.setBackground(Color.lightGray);
+        topLabel.setBackground(Color.decode("#e0e0e0"));
     }
 
     private void createProductsPanel() {
@@ -96,9 +103,14 @@ class OrderMateFrame extends JFrame {
     private void addMenu() {
         menuBar  = new JMenuBar();
         menu = new JMenu("File");
-        JMenuItem allDaySalesItem = new JMenuItem("Show All Day Sales");
+        menu.setMnemonic(KeyEvent.VK_F);
+        JMenuItem allDaySalesItem = new JMenuItem("Total Sales Report");
+        allDaySalesItem.setMnemonic(KeyEvent.VK_R);
+        allDaySalesItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,ActionEvent.ALT_MASK));
         allDaySalesItem.setAction(new AllDaySalesAction());
         JMenuItem exitMenuItem = new JMenuItem("Exit");
+        exitMenuItem.setMnemonic(KeyEvent.VK_X);
+        exitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,ActionEvent.ALT_MASK));
         exitMenuItem.setAction(new ExitAction());
         menu.add(allDaySalesItem);
         menu.add(exitMenuItem);
@@ -133,6 +145,7 @@ class OrderMateFrame extends JFrame {
         Sale newSale=new Sale(selectedItemModel.getSaleItemsList(),selectedItemModel.getTotalValue());
         allSales.add(newSale);
         allSalesTableModel.add(newSale);
+        allSalesPanel.updateTotal();
         selectedItemModel.clear();
         selectedItemsPanel.clearSales();
     }
@@ -153,6 +166,8 @@ class OrderMateFrame extends JFrame {
     class SaveAction extends  AbstractAction {
         public SaveAction() {
             super("Save & Next", Utility.newIcon("/images/save.png"));
+            putValue(MNEMONIC_KEY,new Integer(KeyEvent.VK_S));
+            putValue(ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_S,ActionEvent.ALT_MASK));
         }
         public void actionPerformed(ActionEvent ae) {
             saveAndResetTransaction();
@@ -161,7 +176,9 @@ class OrderMateFrame extends JFrame {
 
     class AllDaySalesAction extends AbstractAction {
         public AllDaySalesAction() {
-            super("Show All Day Sales", Utility.newIcon("/images/dummy.png"));
+            super("Show All Sales", Utility.newIcon("/images/dummy.png"));
+            putValue(MNEMONIC_KEY,new Integer(KeyEvent.VK_R));
+            putValue(ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_R,ActionEvent.ALT_MASK));
         }
         public void actionPerformed(ActionEvent ae) {
             showAllDaySalesPanel();
@@ -171,6 +188,8 @@ class OrderMateFrame extends JFrame {
     class CloseAllDaySalesAction extends AbstractAction {
         public CloseAllDaySalesAction() {
             super("Close", Utility.newIcon("/images/dummy.png"));
+            putValue(MNEMONIC_KEY,new Integer(KeyEvent.VK_C));
+            putValue(ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_C,ActionEvent.ALT_MASK));
         }
         public void actionPerformed(ActionEvent ae) {
             showProductPanel();
@@ -180,6 +199,8 @@ class OrderMateFrame extends JFrame {
     class ExitAction extends AbstractAction {
         public ExitAction() {
             super("Exit", Utility.newIcon("/images/dummy.png"));
+            putValue(MNEMONIC_KEY,new Integer(KeyEvent.VK_X));
+            putValue(ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_X,ActionEvent.ALT_MASK));
         }
         public void actionPerformed(ActionEvent ae) {
             exitApplication();

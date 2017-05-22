@@ -9,6 +9,7 @@ import com.ordermate.utils.Utility;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 /**
  * Created by edwin on 20/05/17.
@@ -44,7 +45,6 @@ public class SelectedItemsPanel extends JPanel implements ItemSelectedListener<S
         saveButton.setAction(saveAction);
     }
 
-
     public void init(SelectedItemsListModel itemsModel) {
         this.itemsModel= itemsModel;
         cellRenderer = new SelectedItemRenderer();
@@ -53,8 +53,6 @@ public class SelectedItemsPanel extends JPanel implements ItemSelectedListener<S
         itemsList.setCellRenderer(cellRenderer);
         itemsList.setFixedCellHeight(60);
         setLayout(new BorderLayout());
-
-
         deleteButton = new JButton();
         minusButton  = new JButton();
         plusButton   = new JButton();
@@ -64,6 +62,11 @@ public class SelectedItemsPanel extends JPanel implements ItemSelectedListener<S
         labelTotalPrice.setHorizontalAlignment(JLabel.RIGHT);
         labelTotalPrice.setFont(labelTotalPrice.getFont().deriveFont(Font.BOLD,24));
         labelTotal.setFont(labelTotalPrice.getFont().deriveFont(Font.BOLD,24));
+
+        saveButton.setHorizontalAlignment(JButton.LEFT);
+        saveButton.setHorizontalTextPosition(JButton.RIGHT);
+        saveButton.setFont(saveButton.getFont().deriveFont(Font.BOLD,20));
+        saveButton.setIconTextGap(150);
 
         topPanel = new JPanel();
         bottomPanel = new JPanel();
@@ -82,8 +85,6 @@ public class SelectedItemsPanel extends JPanel implements ItemSelectedListener<S
 
         bottomPanel.add(totalPricePanel);
         bottomPanel.add(saveButton);
-
-
 
         deleteButton.setAction(new DeleteAction("Delete",Utility.newIcon("/images/delete.png")));
         minusButton.setAction(new MinusAction("Take",Utility.newIcon("/images/remove.png")));
@@ -177,6 +178,8 @@ public class SelectedItemsPanel extends JPanel implements ItemSelectedListener<S
 
         public DeleteAction(String text,Icon icon) {
             super(text,icon);
+            putValue(MNEMONIC_KEY,new Integer(KeyEvent.VK_D));
+            putValue(ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_D,ActionEvent.ALT_MASK));
         }
 
         @Override
@@ -189,8 +192,9 @@ public class SelectedItemsPanel extends JPanel implements ItemSelectedListener<S
 
         public MinusAction(String text,Icon icon) {
             super(text,icon);
+            putValue(MNEMONIC_KEY,new Integer(KeyEvent.VK_T));
+            putValue(ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_T,ActionEvent.ALT_MASK));
         }
-
         @Override
         public void actionPerformed(ActionEvent e) {
             reduceItemCount();
@@ -201,6 +205,8 @@ public class SelectedItemsPanel extends JPanel implements ItemSelectedListener<S
 
         public AddAction(String text,Icon icon) {
             super(text,icon);
+            putValue(MNEMONIC_KEY,new Integer(KeyEvent.VK_A));
+            putValue(ACCELERATOR_KEY,KeyStroke.getKeyStroke(KeyEvent.VK_A,ActionEvent.ALT_MASK));
         }
 
         @Override

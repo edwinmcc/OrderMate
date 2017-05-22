@@ -14,9 +14,11 @@ public class AllSalesPanel extends JPanel {
     private JScrollPane scrollPane;
     private AllSalesTableModel tableModel;
     private AllSalesTableRenderer cellRenderer;
+    private JPanel centerPanel;
     private JPanel bottomPanel;
     private Action closeAction;
     private JButton closeButton;
+    private JLabel  totalLabel;
 
     public AllSalesPanel(AllSalesTableModel tableModel, Action closeAction) {
         this.tableModel=tableModel;
@@ -34,6 +36,7 @@ public class AllSalesPanel extends JPanel {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setDefaultRenderer(Object.class,cellRenderer);
 
+
         scrollPane = new JScrollPane(table);
         bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         closeButton = new JButton();
@@ -41,12 +44,24 @@ public class AllSalesPanel extends JPanel {
         bottomPanel.add(closeButton);
         closeButton.setPreferredSize(new Dimension(200,closeButton.getPreferredSize().height));
 
+        centerPanel = new JPanel();
+
+        totalLabel = new JLabel();
+        totalLabel.setHorizontalAlignment(JLabel.RIGHT);
+        totalLabel.setFont(totalLabel.getFont().deriveFont(Font.BOLD,22));
+
+        centerPanel.setLayout(new BorderLayout());
+
+        centerPanel.add(scrollPane,BorderLayout.CENTER);
+        centerPanel.add(totalLabel,BorderLayout.SOUTH);
+
         setLayout(new BorderLayout());
 
-        add(scrollPane,BorderLayout.CENTER);
+        add(centerPanel,BorderLayout.CENTER);
         add(bottomPanel,BorderLayout.SOUTH);
     }
 
-
-
+    public void updateTotal() {
+        totalLabel.setText("Total Sales : "+tableModel.getTotalSales().toString());
+    }
 }

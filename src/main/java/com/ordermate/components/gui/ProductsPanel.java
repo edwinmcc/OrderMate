@@ -19,7 +19,7 @@ public class ProductsPanel extends JPanel implements ItemChangeListener<ProductG
 
     private GridLayout gridLayout;
     private List<Product> productList;
-    private List<com.ordermate.components.gui.ProductPanel> panelProductsList;
+    private List<ProductPanel> panelProductsList;
     private ItemSelectedListener<SaleItem> itemSelectedListener;
 
     public ProductsPanel() {
@@ -30,11 +30,12 @@ public class ProductsPanel extends JPanel implements ItemChangeListener<ProductG
 
         gridLayout = new GridLayout(0,4, 30,30);
         setLayout(gridLayout);
-        panelProductsList=new ArrayList<com.ordermate.components.gui.ProductPanel>();
+        panelProductsList=new ArrayList<ProductPanel>();
+
     }
 
     private void removeOldProducts() {
-        for(com.ordermate.components.gui.ProductPanel pp : panelProductsList) {
+        for(ProductPanel pp : panelProductsList) {
             remove(pp);
         }
         panelProductsList.clear();
@@ -48,14 +49,14 @@ public class ProductsPanel extends JPanel implements ItemChangeListener<ProductG
 
     private void addNewProducts(List<Product> newProducts) {
         for(Product p : newProducts) {
-            com.ordermate.components.gui.ProductPanel pp=new com.ordermate.components.gui.ProductPanel(p);
+            ProductPanel pp=new ProductPanel(p);
             panelProductsList.add(pp);
             add(pp);
             pp.setItemSelectedListener(itemSelectedListener);
         }
         for(int i=newProducts.size();i<16;i++) {
             Product p=new Product(" ",new BigDecimal("0"),"/images/default1.png");
-            com.ordermate.components.gui.ProductPanel pp=new com.ordermate.components.gui.ProductPanel(p);
+            ProductPanel pp=new ProductPanel(p);
             panelProductsList.add(pp);
             add(pp);
         }

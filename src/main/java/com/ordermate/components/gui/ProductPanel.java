@@ -57,6 +57,20 @@ public class ProductPanel extends JPanel implements MouseListener {
         createGUIComponents();
         setLayout(new BorderLayout());
         labelProductName.setText(product.getName());
+        setProductDetails(product);
+        labelProductName.setFont(labelProductName.getFont().deriveFont(Font.PLAIN,18));
+        labelProductPrice.setFont(labelProductPrice.getFont().deriveFont(Font.PLAIN,18));
+        labelProductName.setHorizontalAlignment(JLabel.CENTER);
+        labelProductPrice.setHorizontalAlignment(JLabel.CENTER);
+        productImage.setIcon(getProductImage());
+        add(productImage,BorderLayout.CENTER);
+        add(labelProductName,BorderLayout.NORTH);
+        add(labelProductPrice,BorderLayout.SOUTH);
+        preferredSize=new Dimension(200,200);
+        addMouseListener(this);
+    }
+
+    private void setProductDetails(Product product) {
         if(product.getPrice().equals(new BigDecimal("0.00"))) {
             labelProductName.setText("");
             labelProductPrice.setText("");
@@ -64,12 +78,6 @@ public class ProductPanel extends JPanel implements MouseListener {
         else {
             labelProductPrice.setText(product.getPrice().toString());
         }
-        productImage.setIcon(getProductImage());
-        add(productImage,BorderLayout.CENTER);
-        add(labelProductName,BorderLayout.NORTH);
-        add(labelProductPrice,BorderLayout.SOUTH);
-        preferredSize=new Dimension(200,200);
-        addMouseListener(this);
     }
 
     public Dimension getPreferredSize() {

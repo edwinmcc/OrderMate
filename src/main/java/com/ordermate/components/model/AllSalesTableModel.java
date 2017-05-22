@@ -5,6 +5,7 @@ import com.ordermate.data.Sale;
 import com.ordermate.data.SaleItem;
 
 import javax.swing.table.DefaultTableModel;
+import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -17,6 +18,7 @@ public class AllSalesTableModel extends DefaultTableModel {
 
     private SimpleDateFormat dateFormat=null;
     private SimpleDateFormat timeFormat=null;
+    private BigDecimal totalSales=new BigDecimal("0.00");
 
     public AllSalesTableModel(String ...columnNames) {
         super(columnNames,0);
@@ -35,8 +37,13 @@ public class AllSalesTableModel extends DefaultTableModel {
         String time=timeFormat.format(sale.getTransactionTime());
         long numberOfItems = sale.getItems().stream().map(SaleItem::getItemCount).reduce(0,Integer::sum);
         String saleValue= sale.getSaleValue().toString();
+        totalSales = totalSales.add(sale.getSaleValue());
         String[] rowData = { String.valueOf(size), date, time, String.valueOf(numberOfItems),saleValue };
         addRow(rowData);
+    }
+
+    public BigDecimal getTotalSales() {
+        return totalSales;
     }
 
 }

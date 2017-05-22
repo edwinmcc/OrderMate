@@ -37,6 +37,7 @@ public class GroupsPanel extends JPanel implements ListSelectionListener {
         groupsList.setCellRenderer(groupsRenderer);
         setLayout(new BorderLayout());
         add(scrollPane,BorderLayout.CENTER);
+
     }
 
     public void setItemChangeListener(ItemChangeListener<ProductGroup> itemChangeListener) {
@@ -51,9 +52,9 @@ public class GroupsPanel extends JPanel implements ListSelectionListener {
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if(e.getValueIsAdjusting()) {
+        /*if(e.getValueIsAdjusting()) {
             return;
-        }
+        }*/
         if(itemChangeListener==null) {
             return;
         }

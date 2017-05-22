@@ -29,9 +29,8 @@ public class SelectedItemRenderer extends JPanel implements ListCellRenderer<Sal
         itemCount = new JLabel();
         itemPrice = new JLabel();
         itemPrice.setHorizontalAlignment(JLabel.RIGHT);
-        originalColor=itemName.getBackground();
         hoverColor = Color.decode("0xffe1e6");
-        selectedColor = Color.decode("0xaaaaaa");
+        selectedColor = Color.decode("0xe7e7e7");
 
         GridBagConstraints gbc = new GridBagConstraints(0, 0, 3, 1, 1.0, .5, GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0);
         add(itemName, gbc);
@@ -46,14 +45,12 @@ public class SelectedItemRenderer extends JPanel implements ListCellRenderer<Sal
         itemName.setText(getProductName(item));
         itemCount.setText(getItemCount(item));
         itemPrice.setText(getItemPrice(item));
-        if(cellHasFocus) {
-            setComponentsColor(hoverColor);
-        }
+
         if(isSelected) {
             setComponentsColor(selectedColor);
         }
         else {
-            setComponentsColor(originalColor);
+            setComponentsColor(list.getBackground());
         }
         return this;
     }
