@@ -1,3 +1,4 @@
-/home/edwin/build/maven-build/OrderMate/src/test/java/com/ordermate/TestAllSalesTableModel.java
-/home/edwin/build/maven-build/OrderMate/src/test/java/com/ordermate/AppTest.java
-/home/edwin/build/maven-build/OrderMate/src/test/java/com/ordermate/TestUtilityDecimalRounding.java
+/home/edwin/build/maven-build/OrderMate/src/test/java/com/ordermate/test/TestSelectionItemsListModel.java
+/home/edwin/build/maven-build/OrderMate/src/test/java/com/ordermate/test/BaseTestCase.java
+/home/edwin/build/maven-build/OrderMate/src/test/java/com/ordermate/test/TestAllSalesTableModel.java
+/home/edwin/build/maven-build/OrderMate/src/test/java/com/ordermate/test/TestUtilityDecimalRounding.java

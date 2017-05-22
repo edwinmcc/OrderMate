@@ -1,3 +1,4 @@
-com/ordermate/TestUtilityDecimalRounding.class
-com/ordermate/TestAllSalesTableModel.class
-com/ordermate/AppTest.class
+com/ordermate/test/TestSelectionItemsListModel.class
+com/ordermate/test/BaseTestCase.class
+com/ordermate/test/TestAllSalesTableModel.class
+com/ordermate/test/TestUtilityDecimalRounding.class
